@@ -41,47 +41,47 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 highlight SyntasticErrorSign guifg=white guibg=black
 
 
-"################### 自动补全 ###################
-
-" 代码自动补全
-"迄今为止用到的最好的自动VIM自动补全插件
-Bundle 'Valloric/YouCompleteMe'
-"youcompleteme  默认tab  s-tab 和自动补全冲突
-"let g:ycm_key_list_select_completion=['<c-n>']
-let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion=['<c-p>']
-let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_tags_files = 1
-
-
-" 跳转到定义处, 分屏打开
-let g:ycm_goto_buffer_command = 'horizontal-split'
-nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-
+" "################### 自动补全 ###################
+"
+" " 代码自动补全
+" "迄今为止用到的最好的自动VIM自动补全插件
+" "Bundle 'Valloric/YouCompleteMe'
+" "youcompleteme  默认tab  s-tab 和自动补全冲突
+" "let g:ycm_key_list_select_completion=['<c-n>']
+" let g:ycm_key_list_select_completion = ['<Down>']
+" "let g:ycm_key_list_previous_completion=['<c-p>']
+" let g:ycm_key_list_previous_completion = ['<Up>']
+" let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
+" let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
+" let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+" let g:ycm_collect_identifiers_from_tags_files = 1
+"
+"
+" " 跳转到定义处, 分屏打开
+" let g:ycm_goto_buffer_command = 'horizontal-split'
+" nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+"
 "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
-
-" 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
-" old version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-endif
-" new version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-endif
-
-" 直接触发自动补全 insert模式下
-let g:ycm_key_invoke_completion = '<C-Space>'
-" 黑名单,不启用
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'gitcommit' : 1,
-      \}
+"
+" " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
+" " old version
+" if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
+"     let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+" endif
+" " new version
+" if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
+""     let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" endif
+"
+" " 直接触发自动补全 insert模式下
+" let g:ycm_key_invoke_completion = '<C-Space>'
+" " 黑名单,不启用
+" let g:ycm_filetype_blacklist = {
+"       \ 'tagbar' : 1,
+"       \ 'gitcommit' : 1,
+"       \}
 
 
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -127,8 +127,9 @@ let g:closetag_html_style=1
 "################### 快速编码 ###################
 
 " 快速注释
-Bundle 'scrooloose/nerdcommenter'
-let g:NERDSpaceDelims=1
+" Bundle 'scrooloose/nerdcommenter'
+" let g:NERDSpaceDelims=1
+Bundle 'tomtom/tcomment_vim'
 
 
 " 快速加入修改环绕字符
@@ -155,18 +156,18 @@ let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String']
 Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 " let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-map <Leader><leader>h <Plug>(easymotion-linebackward)
-map <Leader><Leader>j <Plug>(easymotion-j)
-map <Leader><Leader>k <Plug>(easymotion-k)
-map <Leader><leader>l <Plug>(easymotion-lineforward)
+map <Leader>h <Plug>(easymotion-linebackward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
 
-Bundle 'vim-scripts/matchit.zip'
+" Bundle 'vim-scripts/matchit.zip'
 
 " 显示marks - 方便自己进行标记和跳转
 " m[a-zA-Z] add mark
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
-Bundle "kshenoy/vim-signature"
+" Bundle 'kshenoy/vim-signature'
 
 "################### 文本对象 ###################
 
@@ -201,7 +202,7 @@ Bundle 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>f :CtrlPMRU<CR>
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip     ' MacOSX/Linux'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
@@ -227,9 +228,9 @@ let g:ctrlp_extensions = ['funky']
 
 
 " git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
-Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-fugitive'
 ":Gdiff  :Gstatus :Gvsplit
-nnoremap <leader>ge :Gdiff<CR>
+" nnoremap <leader>ge :Gdiff<CR>
 " not ready to open
 " <leader>gb maps to :Gblame<CR>
 " <leader>gs maps to :Gstatus<CR>
@@ -240,15 +241,15 @@ nnoremap <leader>ge :Gdiff<CR>
 
 " 同git diff,实时展示文件中修改的行
 " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
-Bundle 'airblade/vim-gitgutter'
-let g:gitgutter_map_keys = 0
-let g:gitgutter_enabled = 0
-let g:gitgutter_highlight_lines = 1
-nnoremap <leader>gs :GitGutterToggle<CR>
+" Bundle 'airblade/vim-gitgutter'
+" let g:gitgutter_map_keys = 0
+" let g:gitgutter_enabled = 0
+" let g:gitgutter_highlight_lines = 1
+" nnoremap <leader>gs :GitGutterToggle<CR>
 
 " edit history, 可以查看回到某个历史状态
 Bundle 'sjl/gundo.vim'
-nnoremap <leader>h :GundoToggle<CR>
+nnoremap <leader><leader>h :GundoToggle<CR>
 
 "################### 显示增强 ###################
 
@@ -288,6 +289,7 @@ let g:rbpt_colorpairs = [
     \ ]
 let g:rbpt_max = 40
 let g:rbpt_loadcmd_toggle = 0
+let g:rainbow_active = 0
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
@@ -307,11 +309,11 @@ au Syntax * RainbowParenthesesLoadBraces
 "################### 显示增强-主题 ###################"
 
 "主题 solarized
-Bundle 'altercation/vim-colors-solarized'
+" Bundle 'altercation/vim-colors-solarized'
 "let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
+" let g:solarized_termtrans=1
+" let g:solarized_contrast="normal"
+" let g:solarized_visibility="normal"
 
 "主题 molokai
 Bundle 'tomasr/molokai'
@@ -321,9 +323,10 @@ Bundle 'tomasr/molokai'
 "################### 快速导航 ###################
 "目录导航
 Bundle 'scrooloose/nerdtree'
-map <leader>n :NERDTreeToggle<CR>
+map <F7> :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+let NERDTreeWinSize=20
 "let NERDTreeDirArrows=0
 "let g:netrw_home='~/bak'
 "close vim if the only window left open is a NERDTree
@@ -334,7 +337,7 @@ let g:NERDTreeMapOpenVSplit = 'v'
 
 
 Bundle 'jistr/vim-nerdtree-tabs'
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
+map <F7> <plug>NERDTreeTabsToggle<CR>
 " 关闭同步
 let g:nerdtree_tabs_synchronize_view=0
 let g:nerdtree_tabs_synchronize_focus=0
@@ -351,7 +354,7 @@ hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE te
 hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
 
 
-"for minibufferexpl 去掉, 有需要同学的自己解开
+" for minibufferexpl 去掉, 有需要同学的自己解开
 " Bundle 'fholgado/minibufexpl.vim'
 " let g:miniBufExplMapWindowNavVim = 1
 " let g:miniBufExplMapWindowNavArrows = 1
@@ -474,14 +477,14 @@ Bundle 'Glench/Vim-Jinja2-Syntax'
 "for css color
 "not work in iterm2 which termianl selection is not xterm-256
 "Bundle 'ap/vim-css-color'
- 
+
 " 这个有坑, see issue https://github.com/wklken/k-vim/issues/49
 "Bundle 'gorodinskiy/vim-coloresque'
 
 "###### nginx #########
 "Bundle 'evanmiller/nginx-vim-syntax'
 
-" Bundle "thinca/vim-quickrun"
+" Bundle 'thinca/vim-quickrun'
 " nnoremap <F10> :QuickRun<cr>
 
 "------------------------------------------- end of configs --------------------------------------------

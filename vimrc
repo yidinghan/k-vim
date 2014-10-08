@@ -59,6 +59,7 @@ filetype plugin on
 "启动自动补全
 filetype plugin indent on
 
+cd ~/imaygou/crawler
 set autoread          " 文件修改之后自动载入。
 set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的提示
 
@@ -83,17 +84,17 @@ endif
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 " 突出显示当前行等
-set cursorcolumn
+" set cursorcolumn
 set cursorline          " 突出显示当前行
 
 
 "设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制
 "好处：误删什么的，如果以前屏幕打开，可以找回
-set t_ti= t_te=
+" set t_ti= t_te=
 
 
 "- 则点击光标不会换,用于复制
-set mouse-=a             " 鼠标暂不启用, 键盘党....
+" set mouse-=a             " 鼠标暂不启用, 键盘党....
 
 " 修复ctrl+m 多光标操作选择的bug，但是改变了ctrl+v进行字符选中时将包含光标下的字符
 "set selection=exclusive
@@ -103,8 +104,8 @@ set selectmode=mouse,key
 " No annoying sound on errors
 " 去掉输入错误的提示声音
 set title                " change the terminal's title
-set novisualbell         " don't beep
-set noerrorbells         " don't beep
+" set novisualbell         " don't beep
+" set noerrorbells         " don't beep
 set t_vb=
 set tm=500
 
@@ -130,17 +131,17 @@ set showcmd
 set showmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
-set scrolloff=7
+set scrolloff=5
 
 " set winwidth=79
 
 " 命令行（在状态行下）的高度，默认为1，这里是2
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 " Always show the status line - use 2 lines for the status bar
-set laststatus=2
+" set laststatus=2
 
 "显示行号：
-set number
+" set number
 " 取消换行。
 set nowrap
 
@@ -195,12 +196,12 @@ set nrformats=
 
 
 " 相对行号      行号变成相对，可以用 nj  nk   进行跳转 5j   5k 上下跳5行
-set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+" set relativenumber number
+" au FocusLost * :set norelativenumber number
+" au FocusGained * :set relativenumber
+" " 插入模式下用绝对行号, 普通模式下用相对
+" autocmd InsertEnter * :set norelativenumber number
+" autocmd InsertLeave * :set relativenumber
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber number
@@ -236,8 +237,8 @@ set formatoptions+=B
 "==========================================
 " others 其它设置
 "==========================================
-autocmd! bufwritepost _vimrc source % " vimrc文件修改之后自动加载。 windows。
-autocmd! bufwritepost .vimrc source % " vimrc文件修改之后自动加载。 linux。
+" autocmd! bufwritepost _vimrc source % " vimrc文件修改之后自动加载。 windows。
+" autocmd! bufwritepost .vimrc source % " vimrc文件修改之后自动加载。 linux。
 
 " 自动补全配置
 "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
@@ -271,16 +272,16 @@ endif
 " 主要按键重定义
 
 " 关闭方向键, 强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+" map <Left> <Nop>
+" map <Right> <Nop>
+" map <Up> <Nop>
+" map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
-nnoremap k gk
+nnoremap k  gk
 nnoremap gk k
-nnoremap j gj
+nnoremap j  gj
 nnoremap gj j
 
 " F1 - F6 设置
@@ -298,6 +299,8 @@ noremap <F1> <Esc>"
 function! HideNumber()
   if(&relativenumber == &number)
     set relativenumber! number!
+    au FocusLost * :set norelativenumber number
+    au FocusGained * :set relativenumber
   elseif(&number)
     set number!
   else
@@ -344,10 +347,12 @@ cnoremap <C-e> <End>
 " 搜索相关
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+map <space> za
 " 进入搜索Use sane regexes"
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
 
 "Keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
@@ -379,22 +384,22 @@ noremap <right> :bn<CR>
 " http://vim.wikia.com/wiki/Alternative_tab_navigation
 " http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 "map <C-2> 2gt
-map <leader>th :tabfirst<cr>
-map <leader>tl :tablast<cr>
-
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
-
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
+" map <leader>th :tabfirst<cr>
+" map <leader>tl :tablast<cr>
+"
+" map <leader>tj :tabnext<cr>
+" map <leader>tk :tabprev<cr>
+" map <leader>tn :tabnext<cr>
+" map <leader>tp :tabprev<cr>
+"
+" map <leader>te :tabedit<cr>
+" map <leader>td :tabclose<cr>
+" map <leader>tm :tabm<cr>
 
 
 " 新建tab  Ctrl+t
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-t>     <Esc>:tabnew<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-t>     <Esc>:tabnew<CR>
 " TODO: 配置成功这里, 切换更方便, 两个键
 " nnoremap <C-S-tab> :tabprevious<CR>
 " nnoremap <C-tab>   :tabnext<CR>
@@ -404,24 +409,24 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 " nnoremap <C-Right> :tabnext<CR>
 
 " normal模式下切换到确切的tab
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+" noremap <leader>1 1gt
+" noremap <leader>2 2gt
+" noremap <leader>3 3gt
+" noremap <leader>4 4gt
+" noremap <leader>5 5gt
+" noremap <leader>6 6gt
+" noremap <leader>7 7gt
+" noremap <leader>8 8gt
+" noremap <leader>9 9gt
+" noremap <leader>0 :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
-let g:last_active_tab = 1
+" let g:last_active_tab = 1
 " nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
-nnoremap <silent> <c-l> :execute 'tabnext ' . g:last_active_tab<cr>
-vnoremap <silent> <c-l> :execute 'tabnext ' . g:last_active_tab<cr>
-autocmd TabLeave * let g:last_active_tab = tabpagenr()
+" nnoremap <silent> <c-l> :execute 'tabnext ' . g:last_active_tab<cr>
+" vnoremap <silent> <c-l> :execute 'tabnext ' . g:last_active_tab<cr>
+" autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
 
 " ------- 选中及操作改键
@@ -456,7 +461,7 @@ nnoremap <C-y> 2<C-y>
 "nmap T O<ESC>j
 
 " Quickly close the current window
-nnoremap <leader>q :q<CR>
+" nnoremap <leader>q :q<CR>
 
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line, ` jumps to the marked line and
@@ -516,7 +521,7 @@ nnoremap <buffer> <F10> :exec '!python' shellescape(@%, 1)<cr>
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Monaco:h14
+    set guifont=Source\ Code\ Pro\ ExtraLight:h13
     if has("gui_gtk2")   "GTK2
         set guifont=Monaco\ 12, Monospace\ 12
     endif
@@ -533,7 +538,7 @@ endif
 
 " theme主题
 set background=dark
-colorscheme solarized
+colorscheme molokai
 set t_Co=256
 
 "colorscheme molokai
@@ -545,13 +550,22 @@ hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
 
 "" for error highlight，防止错误整行标红导致看不清
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
+highlight clear      SpellBad
+highlight SpellBad   term=standout  ctermfg=1 term=underline cterm=underline
+highlight clear      SpellCap
+highlight SpellCap   term=underline cterm=underline
+highlight clear      SpellRare
+highlight SpellRare  term=underline cterm=underline
+highlight clear      SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+" neocomplete
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+au FileType python        setlocal omnifunc=pythoncomplete#Complete
+au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
