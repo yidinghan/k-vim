@@ -36,52 +36,52 @@ let g:syntastic_check_on_open=1
 let g:syntastic_enable_highlighting = 0
 "let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint"
 let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快
-let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
+let g:syntastic_javascript_checkers = ['jsl'] ", 'jshint']
+let g:syntastic_html_checkers=['tidy'] " , 'jshint']
 highlight SyntasticErrorSign guifg=white guibg=black
 
 
-" "################### 自动补全 ###################
-"
-" " 代码自动补全
-" "迄今为止用到的最好的自动VIM自动补全插件
-" "Bundle 'Valloric/YouCompleteMe'
-" "youcompleteme  默认tab  s-tab 和自动补全冲突
-" "let g:ycm_key_list_select_completion=['<c-n>']
-" let g:ycm_key_list_select_completion = ['<Down>']
-" "let g:ycm_key_list_previous_completion=['<c-p>']
-" let g:ycm_key_list_previous_completion = ['<Up>']
-" let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-" let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-" let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-" let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-" let g:ycm_collect_identifiers_from_tags_files = 1
-"
-"
-" " 跳转到定义处, 分屏打开
-" let g:ycm_goto_buffer_command = 'horizontal-split'
+"################### 自动补全 ###################
+
+" 代码自动补全
+"迄今为止用到的最好的自动VIM自动补全插件
+Bundle 'Valloric/YouCompleteMe'
+"youcompleteme  默认tab  s-tab 和自动补全冲突
+"let g:ycm_key_list_select_completion=['<c-n>']
+let g:ycm_key_list_select_completion = ['<Down>']
+"let g:ycm_key_list_previous_completion=['<c-p>']
+let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
+let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
+let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
+let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+
+" 跳转到定义处, 分屏打开
+let g:ycm_goto_buffer_command = 'horizontal-split'
 " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 " nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-"
-"let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
-"
-" " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
-" " old version
-" if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-"     let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-" endif
-" " new version
-" if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-""     let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-" endif
-"
-" " 直接触发自动补全 insert模式下
-" let g:ycm_key_invoke_completion = '<C-Space>'
-" " 黑名单,不启用
-" let g:ycm_filetype_blacklist = {
-"       \ 'tagbar' : 1,
-"       \ 'gitcommit' : 1,
-"       \}
+
+let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
+
+" 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
+" old version
+if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
+    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+endif
+" new version
+if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
+"     let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+endif
+
+" 直接触发自动补全 insert模式下
+let g:ycm_key_invoke_completion = '<C-Space>'
+" 黑名单,不启用
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'gitcommit' : 1,
+      \}
 
 
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -150,6 +150,11 @@ if !exists('g:easy_align_delimiters')
 endif
 let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 
+" change word type
+" like c_ddd to CDdd
+Bundle 'tpope/vim-abolish'
+
+
 "################### 快速移动 ###################
 
 "更高效的移动 [,, + w/fx]
@@ -208,12 +213,14 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
     \ }
 "\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=15
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10'
+" let g:ctrlp_match_window_bottom=1
+" let g:ctrlp_max_height=15
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max=500
 let g:ctrlp_follow_symlinks=1
+" let g:ctrlp_by_filename = 0
 
 
 " ctrlp插件1 - 不用ctag进行函数快速跳转
@@ -226,9 +233,8 @@ let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
 
 
-
 " git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
-" Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-fugitive'
 ":Gdiff  :Gstatus :Gvsplit
 " nnoremap <leader>ge :Gdiff<CR>
 " not ready to open
@@ -268,45 +274,76 @@ let g:airline_symbols.branch = '⎇'
 
 
 "括号显示增强
-Bundle 'kien/rainbow_parentheses.vim'
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 40
-let g:rbpt_loadcmd_toggle = 0
-let g:rainbow_active = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" Bundle 'kien/rainbow_parentheses.vim'
+" let g:rbpt_colorpairs = [
+"     \ ['brown',       'RoyalBlue3'],
+"     \ ['Darkblue',    'SeaGreen3'],
+"     \ ['darkgray',    'DarkOrchid3'],
+"     \ ['darkgreen',   'firebrick3'],
+"     \ ['darkcyan',    'RoyalBlue3'],
+"     \ ['darkred',     'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['brown',       'firebrick3'],
+"     \ ['gray',        'RoyalBlue3'],
+"     \ ['black',       'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['Darkblue',    'firebrick3'],
+"     \ ['darkgreen',   'RoyalBlue3'],
+"     \ ['darkcyan',    'SeaGreen3'],
+"     \ ['red',         'firebrick3'],
+"     \ ['darkred',     'DarkOrchid3'],
+"     \ ]
+" let g:rbpt_max = 40
+" let g:rbpt_loadcmd_toggle = 0
+" let g:rainbow_active = 0
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
+
+Bundle 'luochen1990/rainbow'
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\   'guifgs': ['purple', 'springgreen3', 'darkorange3', 'cyan1', 'LemonChiffon1'],
+\   'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan'],
+\   'operators': '_,_',
+\   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+\   'separately': {
+\       '*': {},
+\       'lisp': {
+\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
+\       },
+\       'vim': {
+\           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
+\       },
+\       'tex': {
+\           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
+\       },
+\       'css': 0,
+\       'stylus': 0,
+\   }
+\}
+
 
 " 代码缩进
 " https://github.com/nathanaelkane/vim-indent-guides
-"Bundle 'nathanaelkane/vim-indent-guides'
-"let g:indent_guides_auto_colors = 0
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-"hi IndentGuidesOdd  guibg=red   ctermbg=3
-"hi IndentGuidesEven guibg=green ctermbg=4
-"hi IndentGuidesOdd  ctermbg=black
-"hi IndentGuidesEven ctermbg=darkgrey
+Bundle 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_auto_colors = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+" hi IndentGuidesOdd  guibg=red   ctermbg=3
+" hi IndentGuidesEven guibg=green ctermbg=4
+" hi IndentGuidesOdd  ctermbg=black
+" hi IndentGuidesEven ctermbg=darkgrey
+let g:indent_guides_enable_on_vim_startup = 1
+
+Bundle 'vim-scripts/vim-stylus'
+
 
 "################### 显示增强-主题 ###################"
+
+Bundle 'flazz/vim-colorschemes'
 
 "主题 solarized
 " Bundle 'altercation/vim-colors-solarized'
@@ -316,7 +353,7 @@ au Syntax * RainbowParenthesesLoadBraces
 " let g:solarized_visibility="normal"
 
 "主题 molokai
-Bundle 'tomasr/molokai'
+" Bundle 'tomasr/molokai'
 "let g:molokai_original = 1
 
 
@@ -326,7 +363,7 @@ Bundle 'scrooloose/nerdtree'
 map <F7> :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
-let NERDTreeWinSize=20
+let NERDTreeWinSize=30
 "let NERDTreeDirArrows=0
 "let g:netrw_home='~/bak'
 "close vim if the only window left open is a NERDTree
@@ -342,7 +379,9 @@ map <F7> <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_synchronize_view=0
 let g:nerdtree_tabs_synchronize_focus=0
 " 自动开启nerdtree
-"let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
+let g:nerdtree_tabs_no_startup_for_diff=0
+let g:nerdtree_tabs_smart_startup_focus=0
 
 
 " Vim Workspace Controller
@@ -439,8 +478,8 @@ let python_highlight_all = 1
 "###### Golang #########
 " 1.install golang and install gocode 'go get github.com/nsf/gocode'
 " 2.make sure gocode in your path: `which gocode` (add $GOPATH/bin to you $PATH)
-Bundle 'Blackrush/vim-gocode'
-"Bundle 'fatih/vim-go.git'
+" Bundle 'Blackrush/vim-gocode'
+" Bundle 'fatih/vim-go.git'
 
 "###### Markdown #########
 Bundle 'plasticboy/vim-markdown'
@@ -451,6 +490,8 @@ let g:vim_markdown_folding_disabled=1
 " for javascript  注意: syntax这个插件要放前面
 Bundle 'jelera/vim-javascript-syntax'
 Bundle "pangloss/vim-javascript"
+let g:javascript_conceal = 1
+let g:javascript_conceal_function = "ƒ"
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -458,7 +499,7 @@ let g:html_indent_style1 = "inc"
 
 " for javascript 自动补全,配合YCM,需要安装nodejs&npm  see
 " https://github.com/marijnh/tern_for_vim
-" Bundle 'marijnh/tern_for_vim'
+Bundle 'marijnh/tern_for_vim'
 
 "for jquery
 Bundle 'nono/jquery.vim'
@@ -486,5 +527,12 @@ Bundle 'Glench/Vim-Jinja2-Syntax'
 
 " Bundle 'thinca/vim-quickrun'
 " nnoremap <F10> :QuickRun<cr>
+
+"###### json #########
+Bundle 'elzr/vim-json'
+
+"###### json #########
+Plugin 'kchmck/vim-coffee-script'
+
 
 "------------------------------------------- end of configs --------------------------------------------

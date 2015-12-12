@@ -59,7 +59,7 @@ filetype plugin on
 "启动自动补全
 filetype plugin indent on
 
-cd ~/imaygou/crawler
+cd ~/imaygou
 set autoread          " 文件修改之后自动载入。
 set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的提示
 
@@ -299,8 +299,8 @@ noremap <F1> <Esc>"
 function! HideNumber()
   if(&relativenumber == &number)
     set relativenumber! number!
-    au FocusLost * :set norelativenumber number
-    au FocusGained * :set relativenumber
+    " au FocusLost * :set norelativenumber number
+    " au FocusGained * :set relativenumber
   elseif(&number)
     set number!
   else
@@ -443,6 +443,7 @@ map <Leader>sa ggVG"
 
 " select block
 nnoremap <leader>v V`}
+let g:ctrlp_funky_matchtype = 'path'
 
 " w!! to sudo & write a file
 cmap w!! w !sudo tee >/dev/null %
@@ -513,7 +514,7 @@ function! AutoSetFileHead()
 endfunc
 
 " F10 to run python script
-nnoremap <buffer> <F10> :exec '!python' shellescape(@%, 1)<cr>
+nnoremap  <F10> :exec '!python' shellescape(@%, 1)<cr>
 
 "==========================================
 " Theme Settings  主题设置
@@ -522,6 +523,7 @@ nnoremap <buffer> <F10> :exec '!python' shellescape(@%, 1)<cr>
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guifont=Source\ Code\ Pro\ ExtraLight:h13
+    " set guifont=Anonymous\ Pro:h15
     if has("gui_gtk2")   "GTK2
         set guifont=Monaco\ 12, Monospace\ 12
     endif
@@ -532,7 +534,6 @@ if has("gui_running")
     set guitablabel=%M\ %t
     set showtabline=1
     set linespace=2
-    set noimd
     set t_Co=256
 endif
 
@@ -560,12 +561,17 @@ highlight clear      SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
 " neocomplete
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-au FileType python        setlocal omnifunc=pythoncomplete#Complete
-au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+" let g:neocomplcache_enable_at_startup = 1
+" let g:neocomplcache_min_syntax_length = 3
+" let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+" au FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+" au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" au FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+" au FileType python        setlocal omnifunc=pythoncomplete#Complete
+" au FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
+" for indent
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+
+" map <F10> <ESC>:!python %
