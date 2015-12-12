@@ -1,11 +1,11 @@
 "==========================================
 " Author:  wklken
-" Version: 8.0
+" Version: 9.0
 " Email: wklken@yeah.net
-" BlogPost: http://wklken.me
+" BlogPost: http://www.wklken.me
 " ReadMe: README.md
 " Donation: http://www.wklken.me/pages/donation.html
-" Last_modify: 2014-10-02
+" Last_modify: 2015-05-02
 " Sections:
 "       -> Initial Plugin 加载插件
 "       -> General Settings 基础设置
@@ -18,7 +18,7 @@
 "
 "       -> 插件配置和具体设置在vimrc.bundles中
 "==========================================
- 
+
 "==========================================
 " Initial Plugin 加载插件
 "==========================================
@@ -95,6 +95,8 @@ set cursorline          " 突出显示当前行
 
 "- 则点击光标不会换,用于复制
 " set mouse-=a             " 鼠标暂不启用, 键盘党....
+" set mouse=a                 " Automatically enable mouse usage
+" set mousehide               " Hide the mouse cursor while typing
 
 " 修复ctrl+m 多光标操作选择的bug，但是改变了ctrl+v进行字符选中时将包含光标下的字符
 "set selection=exclusive
@@ -171,6 +173,18 @@ set foldenable
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
 set foldmethod=indent
 set foldlevel=99
+" 代码折叠自定义快捷键
+let g:FoldMethod = 0
+map <leader>zz :call ToggleFold()<cr>
+fun! ToggleFold()
+    if g:FoldMethod == 0
+        exe "normal! zM"
+        let g:FoldMethod = 1
+    else
+        exe "normal! zR"
+        let g:FoldMethod = 0
+    endif
+endfun
 
 " 缩进配置
 
@@ -365,6 +379,10 @@ nnoremap <silent> g* g*zz
 nnoremap # *
 nnoremap * #
 
+" for # indent, python文件中输入新行时#号注释不切回行首
+autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
+
+
 " 去掉搜索高亮
 noremap <silent><leader>/ :nohls<CR>
 
@@ -427,6 +445,8 @@ noremap <right> :bn<CR>
 " nnoremap <silent> <c-l> :execute 'tabnext ' . g:last_active_tab<cr>
 " vnoremap <silent> <c-l> :execute 'tabnext ' . g:last_active_tab<cr>
 " autocmd TabLeave * let g:last_active_tab = tabpagenr()
+nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+vnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 
 
 " ------- 选中及操作改键
@@ -437,6 +457,14 @@ vnoremap > >gv
 
 " y$ -> Y Make Y behave like other capitals
 map Y y$
+
+" 复制选中区到系统剪切板中
+vnoremap <leader>y "+y
+
+" auto jump to end of select
+" vnoremap <silent> y y`]
+" vnoremap <silent> p p`]
+" nnoremap <silent> p p`]
 
 " select all
 map <Leader>sa ggVG"
@@ -463,6 +491,8 @@ nnoremap <C-y> 2<C-y>
 
 " Quickly close the current window
 " nnoremap <leader>q :q<CR>
+" Quickly save the current file
+nnoremap <leader>w :w<CR>
 
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line, ` jumps to the marked line and
@@ -477,12 +507,37 @@ nnoremap U <C-r>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" Automatically set paste mode in Vim when pasting in insert mode
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 "==========================================
 " FileType Settings  文件类型设置
 "==========================================
 
 " Python 文件的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
+
 
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
@@ -491,7 +546,7 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 
 " 定义函数AutoSetFileHead，自动插入文件头
@@ -516,6 +571,15 @@ endfunc
 " F10 to run python script
 nnoremap  <F10> :exec '!python' shellescape(@%, 1)<cr>
 
+" set some keyword to highlight
+if has("autocmd")
+  " Highlight TODO, FIXME, NOTE, etc.
+  if v:version > 701
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+  endif
+endif
+
 "==========================================
 " Theme Settings  主题设置
 "==========================================
@@ -525,7 +589,7 @@ if has("gui_running")
     set guifont=Source\ Code\ Pro\ ExtraLight:h13
     " set guifont=Anonymous\ Pro:h15
     if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12, Monospace\ 12
+        set guifont=Monaco\ 12,Monospace\ 12
     endif
     set guioptions-=T
     set guioptions+=e
@@ -537,15 +601,27 @@ if has("gui_running")
     set t_Co=256
 endif
 
+" allows cursor change in tmux mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
 " theme主题
 set background=dark
 colorscheme molokai
 set t_Co=256
+" colorscheme solarized
+" colorscheme Tomorrow-Night
+" colorscheme Tomorrow-Night-Bright
+" colorscheme desert
 
-"colorscheme molokai
-"colorscheme desert
 
-"设置标记一列的背景颜色和数字一行颜色一致
+
+" 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
@@ -575,3 +651,12 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
 " map <F10> <ESC>:!python %
+" for error highlight，防止错误整行标红导致看不清
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
