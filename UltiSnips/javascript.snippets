@@ -68,3 +68,38 @@ snippet ed
 export default ${1}
 endsnippet
 
+snippet it
+it("${1:should do something}", function(${2:done}){
+    ${3}
+});
+endsnippet
+
+snippet it.only
+it.only('${1:feature}', function(){
+    ${2}
+});
+endsnippet
+
+snippet desc
+describe('${1:feature}', function(){
+    ${2}
+});
+endsnippet
+
+snippet desc.only
+describe.only('${1:feature}', function(){
+    ${2}
+});
+endsnippet
+
+snippet before
+before(function() {
+    ${1}
+});
+endsnippet
+
+snippet after
+after(function() {
+    ${1}
+});
+endsnippet
