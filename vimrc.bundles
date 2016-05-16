@@ -52,7 +52,7 @@ let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
 " let g:syntastic_python_pylint_args='--disable=C0111,R0903,C0301'
 
 
-let g:syntastic_javascript_checkers = ['jsl', 'eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 " 修改高亮的背景色, 适应主题
 highlight SyntasticErrorSign guifg=white guibg=black
@@ -71,8 +71,8 @@ function! ToggleErrors()
     endif
 endfunction
 nnoremap <Leader>s :call ToggleErrors()<cr>
-" nnoremap <Leader>sn :lnext<cr>
-" nnoremap <Leader>sp :lprevious<cr>
+nnoremap <Leader>sn :lnext<cr>
+nnoremap <Leader>sp :lprevious<cr>
 
 
 
@@ -388,6 +388,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 " hi IndentGuidesEven ctermbg=darkgrey
 let g:indent_guides_enable_on_vim_startup = 1
 
+" editorconfig/editorconfig-vim
+Bundle 'editorconfig/editorconfig-vim'
+
 Bundle 'vim-scripts/vim-stylus'
 
 " " 括号显示增强
@@ -597,7 +600,12 @@ let g:vim_markdown_folding_disabled=1
 " ###### HTML/JS/JQUERY/CSS #########
 
 " for javascript  注意: syntax这个插件要放前面
+Bundle 'othree/javascript-libraries-syntax.vim'
+let g:used_javascript_libs = 'underscore,chai,requirejs'
+
 Bundle 'jelera/vim-javascript-syntax'
+" Bundle 'othree/yajs.vim'
+
 Bundle "pangloss/vim-javascript"
 let g:javascript_conceal = 1
 let g:javascript_conceal_function = "ƒ"
@@ -605,10 +613,14 @@ let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
+Bundle "heavenshell/vim-jsdoc"
+let g:jsdoc_enable_es6 = 1
+let g:jsdoc_param_description_separator = '--'
+
 
 " for javascript 自动补全,配合YCM,需要安装nodejs&npm  see
 " https://github.com/marijnh/tern_for_vim
-Bundle 'marijnh/tern_for_vim'
+" Bundle 'marijnh/tern_for_vim'
 
 " for jquery
 Bundle 'nono/jquery.vim'
@@ -621,7 +633,7 @@ Bundle 'nono/jquery.vim'
 " autocmd BufWritePost *.less :!lessc % > %:p:r.css
 
 " ###### Jinja2 #########
-Bundle 'Glench/Vim-Jinja2-Syntax'
+" Bundle 'Glench/Vim-Jinja2-Syntax'
 
 " for css color
 " not work in iterm2 which termianl selection is not xterm-256
@@ -640,7 +652,7 @@ Bundle 'ap/vim-css-color'
 "###### json #########
 Bundle 'elzr/vim-json'
 
-"###### json #########
+"###### coffee #########
 Plugin 'kchmck/vim-coffee-script'
 
 

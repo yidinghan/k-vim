@@ -1,5 +1,37 @@
+snippet @par "@par description"
+@param {${1:Type}} ${2:name} - ${3:description}
+endsnippet
+
+snippet tr "true"
+true
+endsnippet
+
+snippet fa "false"
+false
+endsnippet
+
+snippet r "return ;"
+return ${1};
+endsnippet
+
+snippet pm "Promise.map"
+Promise.map(${1:arr}s, function (${2:$1}) {
+    ${3}
+});
+endsnippet
+
+snippet f "function"
+function (${1:callback}) {
+    ${2}
+}
+endsnippet
+
+snippet cst "const self = this;"
+const self = this;
+endsnippet
+
 snippet lst "let self = this;"
-lek self = this;
+let self = this;
 endsnippet
 
 snippet vst "var self = this;"
@@ -11,7 +43,25 @@ const ${1:ur} = ${2:beauty};
 endsnippet
 
 snippet csr "let require"
-const ${1:_} = require('${2:lodash}');
+const ${1:_} = require('${2:$1}');
+endsnippet
+
+snippet rlo "rlo description"
+const _ = require('lodash');
+endsnippet
+
+snippet rbb "rbb description"
+const Promise = require('bluebird');
+endsnippet
+
+snippet rus "rus description"
+const _ = require('underscore');
+endsnippet
+
+snippet lf "let function"
+let ${1} = function (${2}) {
+    ${3}
+};
 endsnippet
 
 snippet lr "let require"
@@ -69,37 +119,37 @@ export default ${1}
 endsnippet
 
 snippet it
-it("${1:should do something}", function(${2:done}){
+it('${1:should do something}', function (${2:done}) {
     ${3}
 });
 endsnippet
 
 snippet it.only
-it.only('${1:feature}', function(){
+it.only('${1:feature}', function () {
     ${2}
 });
 endsnippet
 
 snippet desc
-describe('${1:feature}', function(){
+describe('${1:feature}', function () {
     ${2}
 });
 endsnippet
 
 snippet desc.only
-describe.only('${1:feature}', function(){
+describe.only('${1:feature}', function () {
     ${2}
 });
 endsnippet
 
-snippet before
-before(function() {
+snippet bf
+before(function () {
     ${1}
 });
 endsnippet
 
-snippet after
-after(function() {
+snippet af
+after(function () {
     ${1}
 });
 endsnippet

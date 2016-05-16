@@ -59,7 +59,7 @@ filetype plugin on
 "启动自动补全
 filetype plugin indent on
 
-cd ~/imaygou
+cd ~/gf
 set autoread          " 文件修改之后自动载入。
 set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的提示
 
@@ -586,7 +586,7 @@ endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Source\ Code\ Pro\ ExtraLight:h13
+    set guifont=Source\ Code\ Pro\ ExtraLight:h15
     " set guifont=Anonymous\ Pro:h15
     if has("gui_gtk2")   "GTK2
         set guifont=Monaco\ 12,Monospace\ 12
@@ -660,3 +660,7 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+" https://github.com/heavenshell/vim-jsdoc
+" nmap <silent> <C-l> <Plug>(jsdoc)
+nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)

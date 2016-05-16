@@ -1,3 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/Users/ding/imaygou/lys/node_modules'
+let g:netrw_dirhist_2='/Users/ding/imaygou/targaryen/.git'
+let g:netrw_dirhist_3='/Users/ding/codinglove/k-vim/bundle'
+let g:netrw_dirhist_4='/Users/ding'
+let g:netrw_dirhist_5='/Users/ding/codinglove/k-vim/bundle'
+let g:netrw_dirhist_6='/Users/ding/gf/backend/gfwealth/Doc'
