@@ -587,6 +587,10 @@ let python_highlight_all = 1
 " Bundle 'tpope/vim-rails'
 
 " ###### Markdown #########
+" https://github.com/mzlogin/vim-markdown-toc
+" toc generator
+Bundle 'mzlogin/vim-markdown-toc'
+
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled=1
 
